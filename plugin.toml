@@ -1,0 +1,25 @@
+# Whisper shipped as a Rust cdylib (Path 4 — dual-emit via
+# `#[node(loadable_export)]` on the in-tree `WhisperNode` in
+# `remotemedia-candle-nodes`).
+#
+# A consumer references this from a manifest as either:
+#
+#   "plugins": ["whisper@v0.1.0"]
+#       (canonical-org shorthand → github.com/RemoteMedia-SDK/whisper)
+#
+#   "plugins": ["./plugins/libwhisper_loadable_plugin.so"]
+#       (local path — for development before the release flow exists)
+#
+# The resolver fetches this file from raw.githubusercontent.com first
+# (cheap, validates the spec + lists node types), then falls through to
+# `release-manifest.json` for the actual platform-specific binary.
+
+[plugin]
+name        = "whisper"
+version     = "0.1.0"
+language    = "rust"
+description = "Whisper speech-to-text (candle-rs backend) — Rust cdylib plugin"
+
+[rust]
+node_types    = ["WhisperNode"]
+asset_pattern = "lib{name}-{arch}-{os}.{ext}"
