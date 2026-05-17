@@ -16,7 +16,7 @@
 
 [plugin]
 name        = "whisper"
-version     = "0.2.0"
+version     = "0.2.1"
 language    = "rust"
 description = "Whisper speech-to-text (candle-rs backend) — Rust cdylib plugin"
 
