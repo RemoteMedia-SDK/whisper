@@ -16,7 +16,7 @@ crate-type = ["cdylib", "rlib"]
 # WhisperNode lives in candle-nodes. Turning the `loadable-export`
 # feature on flips the `#[node]` macro's conditional FFI emission so
 # the inventory contains a `LoadableFactoryEntry` for `WhisperNode`.
-remotemedia-candle-nodes = { git = "https://github.com/RemoteMedia-SDK/remotemedia-sdk.git", rev = "403b2d6c301a72608dc6aea50ab9baaa61dec037", features = ["whisper", "loadable-export"] }
+remotemedia-candle-nodes = { git = "https://github.com/RemoteMedia-SDK/candle-nodes.git", rev = "98a0a1dd50ffe10f4d98ed9f4df1dc6ca05845a0", features = ["whisper", "loadable-export"] }
 
 # `plugin_export!()` walks the inventory and emits the abi_stable
 # root module the host loads via `dlopen`.
