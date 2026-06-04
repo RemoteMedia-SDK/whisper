@@ -11,7 +11,7 @@ dual-emit path (Path 2 / 4). Backed by candle-rs.
 ```json
 {
   "version": "v1",
-  "plugins": ["whisper@v0.1.0"],
+  "plugins": ["whisper@v0.2.4"],
   "nodes": [
     {
       "id": "stt",
@@ -22,7 +22,7 @@ dual-emit path (Path 2 / 4). Backed by candle-rs.
 }
 ```
 
-The SDK resolver expands `whisper@v0.1.0` to
+The SDK resolver expands `whisper@v0.2.4` to
 `github.com/RemoteMedia-SDK/whisper`, fetches `plugin.toml`, then
 falls through to `release-manifest.json` for the platform-specific
 prebuilt `.so` / `.dylib` / `.dll` asset.
