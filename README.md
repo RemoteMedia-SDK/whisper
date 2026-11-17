@@ -11,18 +11,18 @@ dual-emit path (Path 2 / 4). Backed by candle-rs.
 ```json
 {
   "version": "v1",
-  "plugins": ["whisper@v0.2.4"],
+  "plugins": ["whisper@v0.3.0"],
   "nodes": [
     {
       "id": "stt",
-      "node_type": "WhisperNode",
-      "params": { "model_size": "tiny" }
+      "node_type": "Whisper",
+      "params": { "model": "tiny", "transcript_updates": { "mode": "full" } }
     }
   ]
 }
 ```
 
-The SDK resolver expands `whisper@v0.2.4` to
+The SDK resolver expands `whisper@v0.3.0` to
 `github.com/RemoteMedia-SDK/whisper`, fetches `plugin.toml`, then
 falls through to `release-manifest.json` for the platform-specific
 prebuilt `.so` / `.dylib` / `.dll` asset.
@@ -37,9 +37,25 @@ prebuilt `.so` / `.dylib` / `.dll` asset.
 ```bash
 git clone https://github.com/RemoteMedia-SDK/whisper
 cd whisper
-cargo build --release
+cargo build --release --locked
 # → target/release/libwhisper_loadable_plugin.so
 ```
+
+This resolves `candle-nodes`, `remotemedia-sdk-base` and
+`remotemedia-plugin-sdk` from the git revs pinned in `Cargo.toml`, with
+the versions in `Cargo.lock`, which is also what the release workflow
+does.
+
+To build against sibling checkouts instead (`../candle-nodes`,
+`../remotemedia-sdk-base`, `../remotemedia-plugin-sdk`), pass the patch
+file:
+
+```bash
+cargo build --release --config .cargo/local-siblings.toml
+```
+
+This is for development only: Cargo updates `Cargo.lock` to the sibling
+paths, so don't commit the lockfile from such a build.
 
 Then reference it from your manifest:
 
@@ -49,9 +65,31 @@ Then reference it from your manifest:
 
 ## What it exports
 
-| Node type    | Input                                  | Output |
-|--------------|----------------------------------------|--------|
-| `WhisperNode` | Audio (16 kHz mono recommended)        | Text   |
+| Node type | Input | Output |
+|-----------|-------|--------|
+| `Whisper` (Candle, every target) | Audio chunks (any rate and channel count; resampled to 16 kHz mono), `{"type": "flush"}` | Transcript events, or Text |
+
+### Streaming transcript events
+
+With `transcript_updates: { "mode": "full" }` (or `"stable"`), the node
+emits the `delta` / `correction` / `final` JSON events that every
+RemoteMedia STT node shares (`remotemedia_modality::stt`), decoding a
+rolling window of the audio it has received. Send `{"type": "flush"}` to
+close the utterance with a `final`. `stable` sends committed text only,
+and never corrects it.
+
+`agreement_updates` and `trailing_guard_tokens` in the same object tune
+how soon text commits. The window is set with `streamingDecodeIntervalMs`,
+`streamingOverlapMs` and `streamingMaxWindowMs`.
+
+Without `transcript_updates`, the output is the same as in 0.2: the
+`partial` / `correction` / `final` events with `stable_text` /
+`unstable_text` (now deprecated) when `streaming` is on (the default),
+and plain Text otherwise.
+
+0.3 is built against `remotemedia-plugin-sdk` `740b847`
+(loadable-node-abi 0.11), so it loads only in hosts built at the same
+plugin SDK revision.
 
 ## What's in the repo
 
@@ -59,6 +97,8 @@ Then reference it from your manifest:
 whisper/
 ├── plugin.toml      ← metadata (resolver fetches this first)
 ├── Cargo.toml       ← git-deps the SDK at a pinned rev
+├── Cargo.lock       ← the locked dependency versions releases build with
+├── .cargo/local-siblings.toml ← [patch] for sibling checkouts (opt-in)
 ├── src/lib.rs       ← arg-less `plugin_export!()` macro call
 ├── run.sh           ← local smoke-test driver
 └── README.md
