@@ -11,10 +11,17 @@ on:
 
 jobs:
   release:
-    uses: RemoteMedia-SDK/remotemedia-sdk/.github/workflows/build-plugin.yml@main
+    # The shared plugin release workflow lives in the public plugin SDK repo.
+    # A public repository cannot call a reusable workflow in a private one.
+    uses: RemoteMedia-SDK/remotemedia-plugin-sdk/.github/workflows/build-plugin.yml@main
     with:
       crate-name:   whisper-loadable-plugin
       display-name: whisper
       tag:          ${{ inputs.tag || github.ref_name }}
+      # Cargo.lock resolves remotemedia-plugin-sdk 740b847: plugin-sdk 0.13.0,
+      # loadable-node-abi 0.11.0. Stated here so the ABI check matches this
+      # plugin rather than the workflow's defaults.
+      expected-remotemedia-plugin-sdk: '0.13.0'
+      expected-loadable-node-abi:      '0.11.0'
     permissions:
       contents: write
