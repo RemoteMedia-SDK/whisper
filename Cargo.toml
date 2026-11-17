@@ -15,7 +15,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 # `plugin_export!()` walks the inventory and emits the abi_stable
 # root module the host loads via `dlopen`.
-remotemedia-plugin-sdk = { git = "https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk", rev = "b0c04076f2e6432c448c69a59d0ee577f15b8662" }
+remotemedia-plugin-sdk = { git = "https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk", rev = "740b847f252551acd6f22156e6fb46a680b97659" }
 
 # `abi_stable` must be a direct dep so the attribute macros expanded
 # by `plugin_export!()` (`#[sabi_extern_fn]`, `#[export_root_module]`)
@@ -36,7 +36,7 @@ abi_stable = "0.11"
 # WhisperNode lives in candle-nodes. Turning the `loadable-export`
 # feature on flips the `#[node]` macro's conditional FFI emission so
 # the inventory contains a `LoadableFactoryEntry` for `WhisperNode`.
-remotemedia-candle-nodes = { git = "https://github.com/RemoteMedia-SDK/candle-nodes.git", rev = "d954ee05bf8398cbc189f064408ef5ec70c5577b", features = ["whisper", "loadable-export"] }
+remotemedia-candle-nodes = { git = "https://github.com/RemoteMedia-SDK/candle-nodes.git", rev = "dee700942ba8208acf3a9657c20fd7ae93f2311a", features = ["whisper", "loadable-export"] }
 
 [target.'cfg(target_os = "android")'.dependencies]
 remotemedia-litert-nodes = { path = "../remotemedia-litert-nodes", default-features = false, features = ["whisper"] }
@@ -46,6 +46,11 @@ remotemedia-plugin-sdk = { path = "../remotemedia-plugin-sdk/crates/plugin-sdk" 
 remotemedia-traits = { path = "../remotemedia-plugin-sdk/crates/traits" }
 remotemedia-types = { path = "../remotemedia-plugin-sdk/crates/types" }
 loadable-node-abi = { path = "../remotemedia-plugin-sdk/crates/loadable-node-abi" }
+# candle-nodes reaches the shared transcript stabilizer through remotemedia-modality,
+# and remotemedia-sdk-base also depends on these: one copy, the sibling checkout.
+remotemedia-modality = { path = "../remotemedia-plugin-sdk/crates/modality" }
+remotemedia-core-derive = { path = "../remotemedia-plugin-sdk/crates/core-derive" }
+remotemedia-py-env = { path = "../remotemedia-plugin-sdk/crates/py-env-manager" }
 
 [patch."https://github.com/RemoteMedia-SDK/candle-nodes.git"]
 remotemedia-candle-nodes = { path = "../candle-nodes" }
