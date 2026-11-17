@@ -51,7 +51,7 @@ Then reference it from your manifest:
 
 | Node type | Input | Output |
 |-----------|-------|--------|
-| `Whisper` (desktop; Candle) | Audio chunks (any rate and channel count; resampled to 16 kHz mono), `{"type": "flush"}` | Transcript events, or Text |
+| `Whisper` (Candle, every target) | Audio chunks (any rate and channel count; resampled to 16 kHz mono), `{"type": "flush"}` | Transcript events, or Text |
 
 ### Streaming transcript events
 

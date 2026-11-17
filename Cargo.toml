@@ -32,14 +32,14 @@ abi_stable = "0.11"
 # through candle-nodes / plugin-sdk for the `iter` call inside
 # `plugin_export!()` to compile. No extra dep entry required here.
 
-[target.'cfg(not(target_os = "android"))'.dependencies]
 # WhisperNode lives in candle-nodes. Turning the `loadable-export`
 # feature on flips the `#[node]` macro's conditional FFI emission so
 # the inventory contains a `LoadableFactoryEntry` for `WhisperNode`.
+# Candle is pure Rust, so the same backend builds for Android.
 remotemedia-candle-nodes = { git = "https://github.com/RemoteMedia-SDK/candle-nodes.git", rev = "dee700942ba8208acf3a9657c20fd7ae93f2311a", features = ["whisper", "loadable-export"] }
 
-[target.'cfg(target_os = "android")'.dependencies]
-remotemedia-litert-nodes = { path = "../remotemedia-litert-nodes", default-features = false, features = ["whisper"] }
+[patch."https://github.com/RemoteMedia-SDK/remotemedia-sdk-base"]
+remotemedia-sdk-base = { path = "../remotemedia-sdk-base" }
 
 [patch."https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk"]
 remotemedia-plugin-sdk = { path = "../remotemedia-plugin-sdk/crates/plugin-sdk" }
