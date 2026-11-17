@@ -1,0 +1,30 @@
+# Local development only: build against sibling checkouts of
+# remotemedia-plugin-sdk, remotemedia-sdk-base and candle-nodes:
+#
+#   cargo build --config .cargo/local-siblings.toml
+#
+# Release builds (the shared build-plugin workflow) check out only this
+# repository and resolve the git revs in Cargo.toml instead.
+
+[patch."https://github.com/RemoteMedia-SDK/remotemedia-sdk-base"]
+remotemedia-sdk-base = { path = "../remotemedia-sdk-base" }
+
+[patch."https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk"]
+remotemedia-plugin-sdk = { path = "../remotemedia-plugin-sdk/crates/plugin-sdk" }
+remotemedia-traits = { path = "../remotemedia-plugin-sdk/crates/traits" }
+remotemedia-types = { path = "../remotemedia-plugin-sdk/crates/types" }
+loadable-node-abi = { path = "../remotemedia-plugin-sdk/crates/loadable-node-abi" }
+# candle-nodes reaches the shared transcript stabilizer through remotemedia-modality,
+# and remotemedia-sdk-base also depends on these: one copy, the sibling checkout.
+remotemedia-modality = { path = "../remotemedia-plugin-sdk/crates/modality" }
+remotemedia-core-derive = { path = "../remotemedia-plugin-sdk/crates/core-derive" }
+remotemedia-py-env = { path = "../remotemedia-plugin-sdk/crates/py-env-manager" }
+
+[patch."https://github.com/RemoteMedia-SDK/candle-nodes.git"]
+remotemedia-candle-nodes = { path = "../candle-nodes" }
+
+[patch.crates-io]
+remotemedia-plugin-sdk = { path = "../remotemedia-plugin-sdk/crates/plugin-sdk" }
+remotemedia-traits = { path = "../remotemedia-plugin-sdk/crates/traits" }
+remotemedia-types = { path = "../remotemedia-plugin-sdk/crates/types" }
+loadable-node-abi = { path = "../remotemedia-plugin-sdk/crates/loadable-node-abi" }

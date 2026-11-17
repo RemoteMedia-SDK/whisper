@@ -2616,6 +2616,7 @@ checksum = "4744e383959f0db86ede514b809b1c53251889093803c05267acc7d4e7030d70"
 [[package]]
 name = "loadable-node-abi"
 version = "0.11.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "abi_stable",
  "async-ffi",
@@ -3524,6 +3525,7 @@ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 [[package]]
 name = "remotemedia-candle-nodes"
 version = "0.4.1"
+source = "git+https://github.com/RemoteMedia-SDK/candle-nodes.git?rev=65a533c0f6509f720ff2b139b8ae8b6842c7586b#65a533c0f6509f720ff2b139b8ae8b6842c7586b"
 dependencies = [
  "abi_stable",
  "anyhow",
@@ -3552,6 +3554,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-core-derive"
 version = "0.4.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3561,6 +3564,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-modality"
 version = "0.4.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "remotemedia-types",
  "schemars 0.8.22",
@@ -3572,6 +3576,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-plugin-sdk"
 version = "0.13.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "abi_stable",
  "async-ffi",
@@ -3589,6 +3594,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-py-env"
 version = "0.4.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "async-trait",
  "flate2",
@@ -3609,6 +3615,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-sdk-base"
 version = "0.4.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-sdk-base?rev=cf4e5195b23b251d0365279c005bc8c18f1e35cc#cf4e5195b23b251d0365279c005bc8c18f1e35cc"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -3674,6 +3681,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-shared-memory"
 version = "0.1.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "libc",
  "memmap2",
@@ -3687,6 +3695,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-traits"
 version = "0.4.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "arc-swap",
  "async-trait",
@@ -3702,6 +3711,7 @@ dependencies = [
 [[package]]
 name = "remotemedia-types"
 version = "0.4.0"
+source = "git+https://github.com/RemoteMedia-SDK/remotemedia-plugin-sdk?rev=740b847f252551acd6f22156e6fb46a680b97659#740b847f252551acd6f22156e6fb46a680b97659"
 dependencies = [
  "schemars 0.8.22",
  "serde",

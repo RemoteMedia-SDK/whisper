@@ -37,9 +37,25 @@ prebuilt `.so` / `.dylib` / `.dll` asset.
 ```bash
 git clone https://github.com/RemoteMedia-SDK/whisper
 cd whisper
-cargo build --release
+cargo build --release --locked
 # → target/release/libwhisper_loadable_plugin.so
 ```
+
+This resolves `candle-nodes`, `remotemedia-sdk-base` and
+`remotemedia-plugin-sdk` from the git revs pinned in `Cargo.toml`, with
+the versions in `Cargo.lock`, which is also what the release workflow
+does.
+
+To build against sibling checkouts instead (`../candle-nodes`,
+`../remotemedia-sdk-base`, `../remotemedia-plugin-sdk`), pass the patch
+file:
+
+```bash
+cargo build --release --config .cargo/local-siblings.toml
+```
+
+This is for development only: Cargo updates `Cargo.lock` to the sibling
+paths, so don't commit the lockfile from such a build.
 
 Then reference it from your manifest:
 
@@ -81,6 +97,8 @@ plugin SDK revision.
 whisper/
 ├── plugin.toml      ← metadata (resolver fetches this first)
 ├── Cargo.toml       ← git-deps the SDK at a pinned rev
+├── Cargo.lock       ← the locked dependency versions releases build with
+├── .cargo/local-siblings.toml ← [patch] for sibling checkouts (opt-in)
 ├── src/lib.rs       ← arg-less `plugin_export!()` macro call
 ├── run.sh           ← local smoke-test driver
 └── README.md
