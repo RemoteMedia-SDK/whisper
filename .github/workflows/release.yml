@@ -18,7 +18,7 @@ jobs:
       crate-name:   whisper-loadable-plugin
       display-name: whisper
       tag:          ${{ inputs.tag || github.ref_name }}
-      # Cargo.lock resolves remotemedia-plugin-sdk 740b847: plugin-sdk 0.13.0,
+      # Cargo.lock resolves remotemedia-plugin-sdk 3be7101: plugin-sdk 0.13.0,
       # loadable-node-abi 0.11.0. Stated here so the ABI check matches this
       # plugin rather than the workflow's defaults.
       expected-remotemedia-plugin-sdk: '0.13.0'
